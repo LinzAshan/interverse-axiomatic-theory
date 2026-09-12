@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interverse Axiomatic Theory — Evidence over hype</title>
+<meta name="description" content="An evidence-first framework for analyzing power and ability matchups across fictional universes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D1220;
+    --bg-alt: #141B2E;
+    --bg-raised: #182036;
+    --line: #2A3348;
+    --text: #E8E3D8;
+    --text-dim: #98A2B8;
+    --text-faint: #616D87;
+    --gold: #C6963B;
+    --teal: #4E8C89;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Spectral', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'Spectral', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .logo span { color: var(--gold); }
+  nav { display: flex; gap: 28px; }
+  nav a {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+  }
+  nav a:hover { color: var(--text); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 100px 0 90px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-axis {
+    position: absolute;
+    top: 0; right: -10%;
+    width: 640px;
+    height: 640px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero-axis path, .hero-axis circle {
+    stroke: var(--line);
+    fill: none;
+  }
+  .hero-axis .node {
+    fill: var(--gold);
+    stroke: none;
+    opacity: 0.85;
+  }
+  .hero-axis .draw {
+    stroke-dasharray: 900;
+    stroke-dashoffset: 900;
+    animation: draw 2.4s ease forwards 0.2s;
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .eyebrow {
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    max-width: 480px;
+    margin-bottom: 28px;
+  }
+  h1.headline {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    line-height: 1.08;
+    max-width: 620px;
+    color: var(--text);
+  }
+  h1.headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    margin-top: 26px;
+    max-width: 520px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+  }
+
+  /* ---------- Method ---------- */
+  .method {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+  .section-label {
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 1.9rem;
+    max-width: 460px;
+    margin-bottom: 48px;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .step {
+    padding: 24px 24px 0 0;
+    border-top: 2px solid var(--line);
+    position: relative;
+  }
+  .step + .step { border-left: 1px solid var(--line); padding-left: 24px; }
+  .step .num {
+    font-family: 'Spectral', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .step h3 {
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .step p {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+  }
+
+  /* ---------- Verdicts ---------- */
+  .verdicts {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+  }
+  .verdict-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .verdict {
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .verdict:last-child { border-bottom: 1px solid var(--line); }
+  .verdict h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .verdict p.take {
+    color: var(--text-dim);
+    font-size: 0.98rem;
+    max-width: 46ch;
+  }
+  .bars { display: flex; flex-direction: column; gap: 16px; }
+  .bar-row { }
+  .bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .bar-label b { color: var(--text); font-weight: 600; }
+  .bar-track {
+    height: 6px;
+    background: var(--bg-raised);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 3px; }
+  .bar-fill.gold { background: var(--gold); }
+  .bar-fill.teal { background: var(--teal); }
+  .variance {
+    margin-top: 4px;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+  }
+
+  /* ---------- Manifesto ---------- */
+  .manifesto {
+    padding: 80px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .manifesto ul {
+    list-style: none;
+  }
+  .manifesto li {
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    color: var(--text-dim);
+    font-size: 0.98rem;
+  }
+  .manifesto li:last-child { border-bottom: 1px solid var(--line); }
+  .manifesto li b { color: var(--text); font-weight: 600; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 48px 0 60px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer .fnote {
+    font-size: 0.85rem;
+    color: var(--text-faint);
+    max-width: 380px;
+  }
+  footer .flinks { display: flex; gap: 22px; }
+  footer .flinks a { font-size: 0.9rem; color: var(--text-dim); }
+  footer .flinks a:hover { color: var(--gold); }
+
+  @media (max-width: 780px) {
+    .steps { grid-template-columns: 1fr 1fr; row-gap: 32px; }
+    .step + .step { border-left: none; padding-left: 0; }
+    .step:nth-child(2n+1) { padding-right: 24px; }
+    .verdict { grid-template-columns: 1fr; }
+    .manifesto { grid-template-columns: 1fr; }
+    .hero-axis { display: none; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-axis .draw { animation: none; stroke-dashoffset: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">interverse<span>.</span>axiomatic</div>
+    <nav>
+      <a href="#method">Method</a>
+      <a href="#verdicts">Verdicts</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <svg class="hero-axis" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="480" cy="140" r="3" class="node"/>
+      <circle cx="560" cy="320" r="3" class="node"/>
+      <circle cx="420" cy="420" r="3" class="node"/>
+      <circle cx="300" cy="500" r="3" class="node"/>
+      <path class="draw" d="M 480 140 L 560 320 L 420 420 L 300 500" stroke-width="1"/>
+      <circle cx="480" cy="140" r="140" stroke-width="1" opacity="0.5"/>
+      <circle cx="420" cy="420" r="90" stroke-width="1" opacity="0.5"/>
+    </svg>
+    <p class="eyebrow">A framework for cross-universe power analysis</p>
+    <h1 class="headline">Evidence decides. <em>Not popularity.</em></h1>
+    <p class="hero-sub">Interverse Axiomatic Theory reasons through fictional power and ability matchups the way a rigorous debate should — by testing what's actually demonstrated, not what's loudest.</p>
+  </div>
+</section>
+
+<section class="method" id="method">
+  <div class="wrap">
+    <p class="section-label">The Method</p>
+    <h2 class="section-title">Four questions, asked in order, every time.</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>Profile</h3>
+        <p>Every character is understood fully on their own terms before anything is compared.</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>Compatibility</h3>
+        <p>Two universes rarely share the same rules. We check whether an ability can even reach its target before assuming it does.</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>Mechanism</h3>
+        <p>Abilities are judged by what they actually do, never by their name or how they look on screen.</p>
+      </div>
+      <div class="step">
+        <span class="num">04</span>
+        <h3>Verdict</h3>
+        <p>The conclusion states what the evidence currently supports — a lean, never a guarantee.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="verdicts" id="verdicts">
+  <div class="wrap">
+    <p class="section-label">Recent Verdicts</p>
+    <h2 class="section-title">Full write-ups, not just a winner.</h2>
+
+    <div class="verdict-list">
+
+      <div class="verdict">
+        <div>
+          <h3>Isshiki Ōtsutsuki vs. Yhwach</h3>
+          <p class="take">Yhwach's precognition is built to counter exactly the kind of repeatable, named techniques Isshiki relies on — and Isshiki has no demonstrated way to disrupt foresight itself.</p>
+        </div>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-label"><span>Isshiki</span><b>24</b></div>
+            <div class="bar-track"><div class="bar-fill gold" style="width:24%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label"><span>Yhwach</span><b>63</b></div>
+            <div class="bar-track"><div class="bar-fill teal" style="width:63%"></div></div>
+          </div>
+          <p class="variance">Residual variance: 42 — scores are independent, not a split of 100.</p>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <div>
+          <h3>Sakura Haruno vs. Midoriya &amp; All Might</h3>
+          <p class="take">The deciding factor isn't raw output — it's numbers. Sakura has no answer for being restrained and struck at once, though her durability keeps this from being a clean sweep.</p>
+        </div>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-label"><span>Sakura</span><b>33</b></div>
+            <div class="bar-track"><div class="bar-fill gold" style="width:33%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label"><span>Midoriya &amp; All Might</span><b>50</b></div>
+            <div class="bar-track"><div class="bar-fill teal" style="width:50%"></div></div>
+          </div>
+          <p class="variance">Residual variance: 55 — genuinely close, not a manufactured toss-up.</p>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <div>
+          <h3>Gojo Satoru vs. Ulquiorra</h3>
+          <p class="take">Ulquiorra's strongest techniques have no confirmed way past a barrier built to stop far worse — and his best offense doesn't bend space the way it would need to.</p>
+        </div>
+        <div class="bars">
+          <div class="bar-row">
+            <div class="bar-label"><span>Gojo</span><b>78</b></div>
+            <div class="bar-track"><div class="bar-fill gold" style="width:78%"></div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label"><span>Ulquiorra</span><b>33</b></div>
+            <div class="bar-track"><div class="bar-fill teal" style="width:33%"></div></div>
+          </div>
+          <p class="variance">Residual variance: 35.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="manifesto" id="about">
+  <div>
+    <p class="section-label">What this isn't</p>
+    <h2 class="section-title" style="margin-bottom:0;">No popularity contests. No forced winners.</h2>
+  </div>
+  <ul>
+    <li><b>Not a popularity contest.</b> Fan consensus and hype don't count as evidence.</li>
+    <li><b>Not a guaranteed answer.</b> When the evidence is genuinely insufficient, the verdict says so.</li>
+    <li><b>Not narrative-driven.</b> What a story probably wants to happen next is a separate question from what the demonstrated mechanics support.</li>
+    <li><b>Not static.</b> New canon changes the conclusion. It never changes the method.</li>
+  </ul>
+</section>
+
+<footer>
+  <p class="fnote">Interverse Axiomatic Theory is an ongoing, evidence-first project for analyzing fictional power systems across universes.</p>
+  <div class="flinks">
+    <a href="#verdicts">Verdicts</a>
+    <a href="#method">Method</a>
+  </div>
+</footer>
+
+</body>
+</html>
